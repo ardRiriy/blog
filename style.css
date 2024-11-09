@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+body {
+    font-family: "Zen Kaku Gothic New", "sans-serif";   
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.zen-kaku-gothic-new-regular {
+    font-family: "Zen Kaku Gothic New", serif;
+    font-weight: 400;
+    font-style: normal; 
+}
+  
+.zen-kaku-gothic-new-medium {
+    font-family: "Zen Kaku Gothic New", serif;
+    font-weight: 500;
+    font-style: normal;
+}
