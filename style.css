@@ -2,8 +2,38 @@
 
 body {
     font-family: "Zen Kaku Gothic New", "sans-serif";   
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 20%;
+    padding-right: 20%;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+blockquote{
+    position:relative;
+    border-left:3px solid #DA8596;
+    padding-left:10px;
+}
+blockquote p{
+    position:relative;
+    padding-left:30px;
+}
+blockquote cite{
+    display: block;
+    font-size:0.8rem;
+    color:#F8C8B2;
+    text-align:right;
+}
+
+code {
+    font-family: "Roboto", "sans-serif";
+    font-size: 1.0rem;
+}
+
+.codeblock {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 7px;
+    font-family: "Roboto", "sans-serif";
 }
 
 .zen-kaku-gothic-new-regular {
@@ -17,3 +47,10 @@ body {
     font-weight: 500;
     font-style: normal;
 }
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  

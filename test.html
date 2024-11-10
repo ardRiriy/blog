@@ -2,16 +2,37 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>hoge | ardririyのブログ</title>
+        <title> title | ardririyのブログ</title>
         <meta name="description" content="ardririyのブログ">
-        <link rel="stylesheet" href="style.css">
+
+
+        <!-- fontの設定-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+
+        <!-- javascriptの設定 -->
+        <script src="footnote.js"></script>
+        <script src="javascript.js"></script>
+        
+        <!-- highlights.js -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/vs.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+
+        <!-- MathJax-->
+        <script>window.MathJax = { MathML: { extensions: ["mml3.js", "content-mathml.js"]}};</script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+        <!-- css -->
+        <link rel="stylesheet" href="style.css">
     </head>
 
 <body>
-<h1>This is test Content</h1>
+    <h2>This is test Content</h2>
 <p>koreha line 1
 <br>
 <strong>koreha line 2</strong>
@@ -20,11 +41,11 @@
 koreha line 3(not new paragraph)</p>
 <br>
 <p>koreha line 4(new paragraph)</p>
-<h2>This is h2</h2>
+<h3>This is h2</h3>
 <p>this is not strong: **not strong**
 <br>
 backslask in plaintext is available!: \</p>
-<h3>This is h3</h3>
+<h4>This is h3</h4>
 <p>inline code test here: 
 <code>v.iter().join(" ")</code>
 testetste
@@ -33,7 +54,7 @@ this is no content code:
 <code></code>
 aaa</p>
 <hr>
-<pre><code>fn main(){
+<pre><code class="codeblock">fn main(){
     println!("Hello World!");
 }</code></pre>
 <p>this is plain text</p>
@@ -44,17 +65,28 @@ This is also in the quote.
 <strong>This is also.</strong></blockquote>
 <p>This is not in the quote.
 <br>
-ふぉろーみー!!: 
+Follow me!: 
 <a href="https://x.com/ardririy">my twitter account</a>
 <br>
 this is url but url is empty : 
 <a href="">not url!!</a>
 <br>
-this is url but url is empty: 
-<a href="">遷移先のURLがないよ!</a>
+this is url but url is empty
+<span id="test"></span>
+: 
+<a href="">empty url</a>
  hahaha
 <br>
 this is not url: 
-[](https://x.com/ardririy)</p>
+[](https://x.com/ardririy)
+<br>
+数式:  \(E = mc^2\)
+</p>
+
+\[\begin{align}\sum_{i=1}^N \sum_{j=i}^N (S_j - S_{i-1})\mod  M &= \sum_{i=1}^N \sum_{j=i}^N S_j - S_{i-1} + \begin{cases} 0 &\text{if } S_j \geq S_{i-1} \\ M & \text{otherwise} \end{cases} \\&= \sum_{i=1}^N (\sum_{j=1}^N S_j - \sum_{j=1}^N S_{i-1} + kM )\end{align}\]
+looks good!!
+<foot-note for="test"> 遷移先のないURLは自身へ戻ってきます。</foot-note>
+
+
 </body>
 </html>
