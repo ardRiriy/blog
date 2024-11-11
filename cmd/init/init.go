@@ -76,7 +76,6 @@ func main() {
 				tags := []string{}
 				scanner.Scan()
 				secontLine := strings.TrimSpace(scanner.Text())
-				fmt.Println(secontLine)
 				t3, b3 := strings.CutPrefix(secontLine, "<!-- tags:")
 				t4, b4 := strings.CutSuffix(t3, "-->")
 				if b3 && b4 {
