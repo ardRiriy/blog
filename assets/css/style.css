@@ -4,8 +4,9 @@ body {
     font-family: "Zen Kaku Gothic New", "sans-serif";   
     padding-left: 20%;
     padding-right: 20%;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     text-align: justify;
+    line-height: 75px;
 }
 
 blockquote{
