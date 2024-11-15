@@ -85,26 +85,35 @@ let footnoteJs = (function () {
         },
         footNoteListTagFunc: function(element){
             element.style.display = 'block';
-            element.style.borderTop = '1px solid black';
-            element.style.borderBottom = '1px solid black';
+            // div 要素を作成し、脚注をその中に追加
+            const containerDiv = document.createElement('div');  // div 要素を作成
+            containerDiv.classList.add('footnote-container');  // 任意のクラスを追加
 
-            // create footnote list
+            // 「脚注」という文言を追加
+            const titleEle = document.createElement('h3');
+            titleEle.textContent = '脚注';  // ここで文言を設定
+            containerDiv.appendChild(titleEle);  // div の中に追加
+
+            // foot-note タグをリスト化
             const footnoteList = document.querySelectorAll('foot-note');
-            footnoteList.forEach(function(noteEle){
+            footnoteList.forEach(function(noteEle) {
                 const footnoteRefId = noteEle.getAttribute('for');
                 // original title attribute
                 document.getElementById(footnoteRefId).setAttribute('title', noteEle.textContent);
 
-                // generate list content
-                let footNoteEle = document.createElement('div');
+                // 脚注の番号を追加
+                const footNoteEle = document.createElement('div');
                 const footnoteNum = noteEle.getAttribute('foot-note-num');
                 footNoteEle.id = fn.prefixFootNoteId + footnoteNum;
                 footNoteEle.innerHTML = ('<a href="#'+ footnoteRefId +'">['+ footnoteNum +']</a>. '+ noteEle.innerHTML);
-                element.appendChild(footNoteEle);
+                containerDiv.appendChild(footNoteEle);  // 作成した div に追加
 
-                // remove foot-note tag from document
+                // foot-note 要素を削除
                 noteEle.remove();
             });
+
+            const footer = document.querySelector('footer')
+            footer.before(containerDiv)
 
         },
 

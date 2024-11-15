@@ -4,27 +4,25 @@ import (
 	"blog_server/cache"
 	"blog_server/db"
 	"blog_server/model"
+	"bytes"
 	"database/sql"
 	"fmt"
 	"html/template"
 	"net/http"
 	"os/exec"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetArticleFromName(c *gin.Context) {
-	fmt.Println("0")
 	name := c.Params.ByName("name")
 
 	if val, ok := cache.Cache.Get(name); ok {
-		c.HTML(http.StatusOK, "article.tmpl", gin.H{
-			"content": template.HTML(val.([]byte)),
-		})
+		// 完成形のHTMLを直接返す
+		c.Data(http.StatusOK, "text/html; charset=utf-8", val.([]byte))
 		return
 	}
-
-	fmt.Println("1")
 
 	article := new(model.Article)
 	err := db.DB.NewSelect().
@@ -59,9 +57,21 @@ func GetArticleFromName(c *gin.Context) {
 		return
 	}
 
-	cache.Cache.Add(name, htmlContent)
-
-	c.HTML(http.StatusOK, "article.tmpl", gin.H{
+	splitedPath := strings.Split(article.FilePath, "/")
+	title := strings.TrimSuffix(splitedPath[len(splitedPath)-1], ".md")
+	// 完成形のHTMLを生成
+	var buf bytes.Buffer
+	err = c.MustGet("tmpl").(*template.Template).ExecuteTemplate(&buf, "article.tmpl", gin.H{
+		"title":   template.HTML(title),
 		"content": template.HTML(htmlContent),
 	})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Internal Server Error.",
+		})
+		return
+	}
+	html := buf.Bytes()
+	cache.Cache.Add(name, html)
+	c.Data(http.StatusOK, "text/html; charset=utf-8", html)
 }
