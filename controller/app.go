@@ -62,8 +62,10 @@ func GetArticleFromName(c *gin.Context) {
 	// 完成形のHTMLを生成
 	var buf bytes.Buffer
 	err = c.MustGet("tmpl").(*template.Template).ExecuteTemplate(&buf, "article.tmpl", gin.H{
-		"title":   template.HTML(title),
-		"content": template.HTML(htmlContent),
+		"title":    template.HTML(title),
+		"subtitle": template.HTML(article.Subtitle),
+		"date":     template.HTML(article.UpdatedAt.Format("2006/01/02")),
+		"content":  template.HTML(htmlContent),
 	})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
