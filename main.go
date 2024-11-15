@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
@@ -30,6 +30,8 @@ type Article struct {
 var (
 	db *bun.DB
 )
+
+var cache, _ = lru.New(32)
 
 func initDB() error {
 	dbUsername := os.Getenv("PSQL_USERNAME")
@@ -53,6 +55,13 @@ func initDB() error {
 func getArticleFromName(c *gin.Context) {
 	name := c.Params.ByName("name")
 
+	if val, ok := cache.Get(name); ok {
+		c.HTML(http.StatusOK, "article.tmpl", gin.H{
+			"content": template.HTML(val.([]byte)),
+		})
+		return
+	}
+
 	article := new(Article)
 	err := db.NewSelect().
 		Model(article).
@@ -75,9 +84,6 @@ func getArticleFromName(c *gin.Context) {
 		}
 	}
 
-	// titleはファイル名
-	arr := strings.Split(article.Name, "/")
-	title := arr[len(arr)-1]
 	// 対応するarticleをparseする
 	htmlContent, err := exec.Command("armp", article.FilePath).Output()
 	if err != nil {
@@ -86,8 +92,10 @@ func getArticleFromName(c *gin.Context) {
 		})
 		return
 	}
+
+	cache.Add(name, htmlContent)
+
 	c.HTML(http.StatusOK, "article.tmpl", gin.H{
-		"title":   title,
 		"content": template.HTML(htmlContent),
 	})
 }
