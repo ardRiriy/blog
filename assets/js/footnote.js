@@ -112,9 +112,8 @@ let footnoteJs = (function () {
                 noteEle.remove();
             });
 
-            const footer = document.querySelector('footer')
-            footer.before(containerDiv)
-
+            const generatedContent = document.querySelector('.generated-content');
+            generatedContent.appendChild(containerDiv);
         },
 
         rescueMissedFootNote: function(){

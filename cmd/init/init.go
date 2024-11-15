@@ -22,7 +22,7 @@ type Article struct {
 
 	Name      string    `bun:",pk"` // urlSuffixを持つ(key)
 	FilePath  string    `bun:"file_path,notnull"`
-	Tags      []string  `bun:"type:text[]"`
+	Subtitle  string    `bun:"subtitle"`
 	CreatedAt time.Time `bun:"created_at,notnull,default:current_timestamp"`
 	UpdatedAt time.Time `bun:"updated_at,notnull,default:current_timestamp"`
 }
@@ -73,21 +73,19 @@ func main() {
 			if b1 && b2 {
 				// 公開対象なのでpathのurlの組をDBに保存
 				// initializeではinsertする。空のDBに対して実行しているので重複しないはず。
-				tags := []string{}
 				scanner.Scan()
 				secontLine := strings.TrimSpace(scanner.Text())
-				t3, b3 := strings.CutPrefix(secontLine, "<!-- tags:")
+				subtitle := ""
+				t3, b3 := strings.CutPrefix(secontLine, "<!-- subtitle:")
 				t4, b4 := strings.CutSuffix(t3, "-->")
 				if b3 && b4 {
-					tags = strings.Split(t4, ",")
-				}
-				for i := range tags {
-					tags[i] = strings.TrimSpace(tags[i])
+					subtitle = strings.TrimSpace(t4)
+
 				}
 				article := Article{
 					Name:     urlSuffix,
 					FilePath: path,
-					Tags:     tags,
+					Subtitle: subtitle,
 				}
 				articles = append(articles, article)
 			}

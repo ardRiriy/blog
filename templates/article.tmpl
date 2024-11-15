@@ -35,11 +35,18 @@
 
     
     <body>
-        {{.content}}
+        <div class="titles">
+            <h1> {{.title}} </h1>
+            <div> {{.subtitle}} </div>
+            <div> last edited: </div>
+        </div>
+        <div class="generated-content">
+            {{.content}}
+        </div>
+        <footer>
+            <a href="/index"> トップページへ </a>
+            <p> ©2024 ardririy / Hayana Nakagawa </p>
+        </footer>
     </body>
 
-    <footer>
-        <a href="/index"> トップページへ </a>
-        <p> ©2024 ardririy (Hayana Nakagawa) </p>
-    </footer>
 </html>

@@ -11,7 +11,7 @@ type Article struct {
 
 	Name      string    `bun:",pk"` // urlSuffixを持つ(key)
 	FilePath  string    `bun:"file_path,notnull"`
-	Tags      []string  `bun:"type:text[]"`
+	Subtitle  string    `bun:"subtitle"`
 	CreatedAt time.Time `bun:"created_at,notnull,default:current_timestamp"`
 	UpdatedAt time.Time `bun:"updated_at,notnull,default:current_timestamp"`
 }
