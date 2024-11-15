@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -17,7 +18,6 @@ import (
 
 func GetArticleFromName(c *gin.Context) {
 	name := c.Params.ByName("name")
-
 	if val, ok := cache.Cache.Get(name); ok {
 		// 完成形のHTMLを直接返す
 		c.Data(http.StatusOK, "text/html; charset=utf-8", val.([]byte))
@@ -47,7 +47,8 @@ func GetArticleFromName(c *gin.Context) {
 	}
 
 	// 対応するarticleをparseする
-	htmlContent, err := exec.Command("armp", article.FilePath).Output()
+	root := os.Getenv("KNOWLEDGES")
+	htmlContent, err := exec.Command("armp", root+article.FilePath).Output()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Internal Server Error.",

@@ -11,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"
@@ -28,6 +29,7 @@ type Article struct {
 }
 
 func main() {
+	godotenv.Load(".env")
 	root, ok := os.LookupEnv("KNOWLEDGES")
 	if !ok {
 		fmt.Println("Environment variable KNOWLEDGES must be set.")
@@ -36,9 +38,15 @@ func main() {
 
 	articles := []Article{}
 
-	dbUsername := os.Getenv("PSQL_USERNAME")
-	password := os.Getenv("PSQL_PASSWORD")
-	dsn := fmt.Sprintf("postgres://%s:%s@localhost:5432/blog?sslmode=disable", dbUsername, password)
+	host := os.Getenv("HOST")
+	username := os.Getenv("PSQL_USER")
+	port := os.Getenv("PORT")
+	password := os.Getenv("PASSWORD")
+	dbname := os.Getenv("DBNAME")
+
+	dsn := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?sslmode=disable", username, password, host, port, dbname)
+
+	fmt.Println(dsn)
 	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(dsn)))
 	db := bun.NewDB(sqldb, pgdialect.New())
 	// SQL文のロギングを有効にする
@@ -84,7 +92,7 @@ func main() {
 				}
 				article := Article{
 					Name:     urlSuffix,
-					FilePath: path,
+					FilePath: strings.TrimPrefix(path, root),
 					Subtitle: subtitle,
 				}
 				articles = append(articles, article)
