@@ -1,12 +1,28 @@
 @charset "UTF-8";
 
 body {
-    font-family: "Zen Kaku Gothic New", "sans-serif";   
-    padding-left: 20%;
-    padding-right: 20%;
-    font-size: 1.1rem;
+    font-family: "Zen Kaku Gothic New", "sans-serif";
+    padding-left: 25%;
+    padding-right: 25%;
+    font-size: 1.0rem;
     text-align: justify;
+    line-height: 30px;
+    background: #c8d2d4; /* 外側の色 */
 }
+
+body::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    bottom: 0;
+    background: #ffffff; /* 内側の色 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* 影の設定 */
+    z-index: -1; /* 背景に送る */
+}
+
 
 blockquote{
     position:relative;
