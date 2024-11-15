@@ -2,7 +2,6 @@ package server
 
 import (
 	"html/template"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,11 +28,6 @@ func InitSv() *Server {
 	tmpl := template.Must(template.New("").ParseGlob("templates/*.tmpl"))
 	engine.Use(TemplateMiddleware(tmpl))
 
-	engine.GET("/hc", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"message": "Service working.",
-		})
-	})
 	return &Server{
 		Gin:    engine,
 		Status: 0,

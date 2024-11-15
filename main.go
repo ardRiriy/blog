@@ -19,6 +19,7 @@ func main() {
 	cache.InitCache(32)
 	server.Sv = server.InitSv()
 
+	server.Sv.Gin.GET("/hc", controller.GetHealthCheck)
 	server.Sv.Gin.GET("/article/:name", controller.GetArticleFromName)
 	server.Sv.Gin.POST("/webhook/update-knowledge", controller.GithubWebhook)
 	server.Sv.Gin.Run(":3000")
