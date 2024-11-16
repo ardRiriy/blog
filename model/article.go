@@ -44,14 +44,16 @@ func FetchArticles(size int) []Article {
 func ToListElement(article *Article) (string, error) {
 	// テンプレート文字列
 	tmpl := `
-<article class="card">
-    <div class="card-content">
-        <header>
-            <h2>{{ .Title }}</h2>
-        </header>
-        <p>{{ .Subtitle }}</p>
-    </div>
-</article>
+<a href="/article/{{ .Url }}" style="text-decoration: none; color: inherit;">
+	<article class="card">
+		<div class="card-content">
+			<header>
+				<h2>{{ .Title }}</h2>
+			</header>
+			<p>{{ .Subtitle }}</p>
+		</div>
+	</article>
+</a>
 `
 
 	// テンプレートをパース
@@ -65,6 +67,7 @@ func ToListElement(article *Article) (string, error) {
 	data := map[string]interface{}{
 		"Title":    title,
 		"Subtitle": article.Subtitle,
+		"Url":      article.Name,
 	}
 
 	// バッファに出力を保存
