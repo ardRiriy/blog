@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+.titles {
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;
+    /* 縦に並べる */
+    justify-content: center;
+    /* 中央揃え */
+    align-items: center;
+    /* 中央揃え */
+}
+
+.titles h1 {
+    margin: 7px;
+    font-size: 2rem;
+    /* タイトルのサイズ調整 */
+}
+
+
+body {
+    font-family: "Zen Kaku Gothic New", "sans-serif";
+    padding: 10% 17%;
+    /* body全体のパディング */
+    font-size: 0.9rem;
+    text-align: justify;
+    line-height: 25px;
+    background: #c8d2d4;
+    /* 外側の色 */
+    color: #3d3d3d;
+}
+
+.card {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    /* 固定サイズを保つ */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 470px;
+    /* カードの固定幅 */
+    height: 250px;
+    /* カードの固定高さ */
+    margin: 20px;
+    overflow: hidden;
+    /* オーバーフローを非表示 */
+}
+
+.card-content {
+    padding: 15px;
+    display: -webkit-box;
+    /* Flexbox-like layout for text truncation */
+    -webkit-box-orient: vertical;
+    /* 縦方向にテキストを配置 */
+    overflow: hidden;
+    /* オーバーフロー部分を非表示 */
+    text-overflow: ellipsis;
+    /* テキストを省略記号に置き換える */
+    white-space: normal;
+    /* 改行を許可 */
+    -webkit-line-clamp: 3;
+    /* 最大4行まで表示（必要に応じて調整） */
+}
+
+
+.card-container {
+    display: flex;
+    /* カードを横並びにする */
+    flex-wrap: wrap;
+    /* 横幅を超える場合は折り返す */
+    gap: 20px;
+    /* カード間の間隔 */
+    justify-content: center;
+    /* 中央揃え */
+    padding: 20px;
+    /* 全体の余白 */
+}
+
+
+h2 {
+    border-bottom: 1px solid #000;
+    /* 下線を引く */
+    padding-bottom: 10px;
+    /* 下線とテキストの間隔を調整 */
+    margin-top: 30px;
+    color: #2c2c2c;
+}
+
+hr {
+    border-top: #3d3d3d 1px dashed;
+}
+
+
+footer {
+    border-top: 1px solid #3d3d3d;
+    margin-top: 50px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    /* 縦に並べる */
+    justify-content: center;
+    /* 中央揃え */
+    align-items: center;
+    /* 中央揃え */
+}
+
+.zen-kaku-gothic-new-regular {
+    font-family: "Zen Kaku Gothic New", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.zen-kaku-gothic-new-medium {
+    font-family: "Zen Kaku Gothic New", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}

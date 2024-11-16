@@ -16,6 +16,26 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func GetIndex(c *gin.Context) {
+	articles := model.FetchArticles(20)
+	var htmlParts []string
+
+	for _, article := range articles {
+		html, err := model.ToListElement(&article)
+		if err != nil {
+			continue
+		}
+		htmlParts = append(htmlParts, html)
+	}
+
+	content := strings.Join(htmlParts, "\n")
+	fmt.Println(content)
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+		"content": template.HTML(content),
+	})
+
+}
+
 func GetArticleFromName(c *gin.Context) {
 	name := c.Params.ByName("name")
 	if val, ok := cache.Cache.Get(name); ok {
@@ -48,7 +68,8 @@ func GetArticleFromName(c *gin.Context) {
 
 	// 対応するarticleをparseする
 	root := os.Getenv("KNOWLEDGES")
-	htmlContent, err := exec.Command("armp", root+article.FilePath).Output()
+	path := root + article.FilePath
+	htmlContent, err := exec.Command("armp", path).Output()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "Internal Server Error.",
